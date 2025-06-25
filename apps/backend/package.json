@@ -1,0 +1,32 @@
+{
+  "name": "@budget-tracker/backend",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "bun run --watch src/index.ts",
+    "build": "bun build src/index.ts --outdir dist --target bun",
+    "start": "bun run dist/index.js",
+    "lint": "eslint src --ext .ts,.tsx",
+    "type-check": "tsc --noEmit",
+    "db:init": "bun run src/db/init-db.ts",
+    "db:migrate": "bun run src/db/migrate.ts",
+    "db:seed": "bun run src/db/seed.ts",
+    "db:setup": "bun run db:init && bun run db:migrate",
+    "db:reset": "bun run db:init && bun run db:migrate"
+  },
+  "dependencies": {
+    "@hono/zod-validator": "^0.2.0",
+    "hono": "^4.0.0",
+    "nodemailer": "7.0.3",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/bun": "1.2.16",
+    "@types/nodemailer": "6.4.17",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.57.0",
+    "typescript": "^5.3.3"
+  },
+  "type": "module"
+}

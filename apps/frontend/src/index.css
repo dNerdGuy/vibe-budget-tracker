@@ -1,0 +1,548 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Professional dark theme color scheme */
+    --background: 222 12% 8%; /* Deep charcoal background */
+    --foreground: 210 20% 88%; /* Soft white text */
+    --card: 222 15% 12%; /* Card background - slightly lighter */
+    --card-foreground: 210 20% 88%;
+    --popover: 222 15% 12%;
+    --popover-foreground: 210 20% 88%;
+    --primary: 220 60% 50%; /* Professional blue */
+    --primary-foreground: 210 20% 98%;
+    --secondary: 215 25% 18%; /* Muted secondary */
+    --secondary-foreground: 210 15% 85%;
+    --muted: 215 20% 15%; /* Subtle muted */
+    --muted-foreground: 217 10% 65%;
+    --accent: 220 50% 45%; /* Accent blue */
+    --accent-foreground: 210 20% 98%;
+    --destructive: 0 65% 45%; /* Professional red */
+    --destructive-foreground: 210 20% 98%;
+    --border: 215 20% 20%; /* Subtle borders */
+    --input: 215 20% 15%; /* Input backgrounds */
+    --ring: 220 60% 50%; /* Focus rings */
+    --radius: 0.5rem;
+    /* Professional chart colors */
+    --chart-1: 220 38% 45%; /* Muted professional blue */
+    --chart-2: 160 40% 40%; /* Muted teal */
+    --chart-3: 25 50% 50%; /* Muted orange */
+    --chart-4: 280 35% 50%; /* Muted purple */
+    --chart-5: 340 45% 45%; /* Muted pink */
+
+    /* Success and warning colors */
+    --success: 145 60% 45%; /* Professional green */
+    --warning: 45 85% 55%; /* Amber warning */
+    --info: 200 85% 55%; /* Info blue */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Inter", "system-ui", "Segoe UI", "Roboto", "sans-serif";
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    min-height: 100vh;
+  }
+
+  /* Enhanced scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgb(243 244 246);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgb(156 163 175);
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(107 114 128);
+  }
+
+  /* Smooth focus transitions */
+  * {
+    @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-colors;
+  }
+}
+
+@layer components {
+  /* Professional gradients */
+  .gradient-primary {
+    @apply bg-gradient-to-r from-slate-700 to-slate-600;
+  }
+
+  .gradient-success {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  }
+
+  .gradient-warning {
+    background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+  }
+
+  .gradient-danger {
+    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+  }
+
+  .gradient-info {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  }
+  .gradient-bg {
+    @apply bg-gradient-to-br from-slate-50 to-slate-100;
+  }
+
+  .glass-effect {
+    @apply bg-white/80 backdrop-blur-md border border-white/20;
+  }
+
+  /* Enhanced animations */
+  .animate-slide-up {
+    animation: slideUp 0.3s ease-out forwards;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.2s ease-out forwards;
+  }
+
+  /* Card improvements */
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50;
+  }
+
+  .btn-primary {
+    @apply bg-primary text-primary-foreground hover:bg-primary/90;
+  }
+
+  .btn-secondary {
+    @apply bg-secondary text-secondary-foreground hover:bg-secondary/80;
+  }
+
+  .btn-destructive {
+    @apply bg-destructive text-destructive-foreground hover:bg-destructive/90;
+  }
+
+  .btn-outline {
+    @apply border border-input bg-background hover:bg-accent hover:text-accent-foreground;
+  }
+
+  .btn-ghost {
+    @apply hover:bg-accent hover:text-accent-foreground;
+  }
+
+  .btn-link {
+    @apply text-primary underline-offset-4 hover:underline;
+  }
+
+  .card {
+    @apply rounded-lg border bg-card text-card-foreground shadow-sm;
+  }
+
+  .input {
+    @apply flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+  } /* React Day Picker Styling - Enhanced & Beautiful */
+  .rdp {
+    --rdp-cell-size: 40px;
+    --rdp-accent-color: hsl(var(--primary));
+    --rdp-background-color: hsl(var(--background));
+    --rdp-outline: 2px solid hsl(var(--primary));
+    --rdp-outline-selected: 2px solid hsl(var(--primary));
+    font-family: inherit;
+  }
+
+  .rdp-months {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+  }
+
+  .rdp-month {
+    margin: 0;
+    padding: 1rem;
+    background: hsl(var(--card));
+    border-radius: 0.75rem;
+    border: 1px solid hsl(var(--border));
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    backdrop-filter: blur(10px);
+  }
+
+  .rdp-caption {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.75rem 0 1rem 0;
+    position: relative;
+  }
+
+  .rdp-caption_label {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: hsl(var(--foreground));
+    letter-spacing: 0.025em;
+  }
+  .rdp-month_grid {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 2px;
+  }
+
+  .rdp-weekdays,
+  .rdp-week {
+    display: table-row;
+  }
+
+  .rdp-weekday,
+  .rdp-day {
+    display: table-cell;
+    width: var(--rdp-cell-size);
+    height: var(--rdp-cell-size);
+    text-align: center;
+    vertical-align: middle;
+    padding: 2px;
+  }
+
+  .rdp-weekday {
+    font-weight: 600;
+    font-size: 0.75rem;
+    color: hsl(var(--muted-foreground));
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.5rem 0;
+    width: calc(100% / 7);
+  }
+  .rdp-day_button {
+    all: unset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .rdp-day_button::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, hsl(var(--accent)), transparent);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+
+  .rdp-day_button:hover::before {
+    opacity: 0.1;
+  }
+
+  .rdp-day_button:hover {
+    background-color: hsl(var(--accent) / 0.8);
+    color: hsl(var(--accent-foreground));
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  .rdp-day_button:active {
+    transform: scale(0.95);
+  }
+
+  .rdp-day_button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .rdp-day_button:disabled:hover {
+    background-color: transparent;
+    transform: none;
+    box-shadow: none;
+  }
+
+  .rdp-today {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--accent)),
+      hsl(var(--accent) / 0.8)
+    );
+    color: hsl(var(--accent-foreground));
+    font-weight: 600;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 2px solid hsl(var(--accent) / 0.3);
+  }
+  .rdp-today:hover {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--accent)),
+      hsl(var(--accent) / 0.9)
+    );
+    transform: scale(1.05);
+  }
+
+  .rdp-selected {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--primary)),
+      hsl(var(--primary) / 0.9)
+    ) !important;
+    color: hsl(var(--primary-foreground)) !important;
+    font-weight: 600;
+    box-shadow: 0 4px 12px hsl(var(--primary) / 0.3);
+    border: 2px solid hsl(var(--primary) / 0.5);
+  }
+
+  .rdp-selected:hover {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--primary)),
+      hsl(var(--primary) / 0.8)
+    ) !important;
+    color: hsl(var(--primary-foreground)) !important;
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px hsl(var(--primary) / 0.4);
+  }
+
+  /* Enhanced Range highlighting with beautiful gradients */
+  .rdp-range_start {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--primary)),
+      hsl(var(--primary) / 0.9)
+    ) !important;
+    color: hsl(var(--primary-foreground)) !important;
+    border-radius: 0.5rem 0.25rem 0.25rem 0.5rem;
+    font-weight: 600;
+    box-shadow: 0 4px 12px hsl(var(--primary) / 0.3);
+    border: 2px solid hsl(var(--primary) / 0.5);
+    position: relative;
+    z-index: 2;
+  }
+
+  .rdp-range_end {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--primary)),
+      hsl(var(--primary) / 0.9)
+    ) !important;
+    color: hsl(var(--primary-foreground)) !important;
+    border-radius: 0.25rem 0.5rem 0.5rem 0.25rem;
+    font-weight: 600;
+    box-shadow: 0 4px 12px hsl(var(--primary) / 0.3);
+    border: 2px solid hsl(var(--primary) / 0.5);
+    position: relative;
+    z-index: 2;
+  }
+
+  .rdp-range_middle {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--primary) / 0.2),
+      hsl(var(--primary) / 0.15)
+    ) !important;
+    color: hsl(var(--primary)) !important;
+    border-radius: 0.25rem;
+    font-weight: 500;
+    border: 1px solid hsl(var(--primary) / 0.2);
+    position: relative;
+  }
+
+  .rdp-range_start:hover,
+  .rdp-range_end:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px hsl(var(--primary) / 0.4);
+  }
+
+  .rdp-range_middle:hover {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--primary) / 0.3),
+      hsl(var(--primary) / 0.25)
+    ) !important;
+    transform: scale(1.02);
+  }
+
+  /* Alternative approach using data attributes for better compatibility */
+  [data-selected="true"] {
+    background-color: hsl(var(--primary)) !important;
+    color: hsl(var(--primary-foreground)) !important;
+  }
+
+  [data-range-start="true"] {
+    background-color: hsl(var(--primary)) !important;
+    color: hsl(var(--primary-foreground)) !important;
+    border-radius: 0.375rem 0 0 0.375rem;
+  }
+
+  [data-range-end="true"] {
+    background-color: hsl(var(--primary)) !important;
+    color: hsl(var(--primary-foreground)) !important;
+    border-radius: 0 0.375rem 0.375rem 0;
+  }
+
+  [data-range-middle="true"] {
+    background-color: hsl(var(--accent)) !important;
+    color: hsl(var(--accent-foreground)) !important;
+    border-radius: 0;
+  }
+  .rdp-outside {
+    color: hsl(var(--muted-foreground));
+    opacity: 0.4;
+    font-weight: 400;
+  }
+
+  .rdp-button_previous,
+  .rdp-button_next {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 0.5rem;
+    border: 1px solid hsl(var(--border));
+    background: hsl(var(--background));
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    z-index: 10;
+  }
+
+  .rdp-button_previous {
+    left: 1rem;
+  }
+
+  .rdp-button_next {
+    right: 1rem;
+  }
+
+  .rdp-button_previous:hover,
+  .rdp-button_next:hover {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--accent)),
+      hsl(var(--accent) / 0.8)
+    );
+    color: hsl(var(--accent-foreground));
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    border-color: hsl(var(--accent));
+  }
+
+  .rdp-button_previous:active,
+  .rdp-button_next:active {
+    transform: scale(0.95);
+  }
+
+  .rdp-button_previous svg,
+  .rdp-button_next svg {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.2s ease;
+  }
+
+  .rdp-button_previous:hover svg,
+  .rdp-button_next:hover svg {
+    transform: scale(1.1);
+  }
+  /* Enhanced keyboard focus styles */
+  .rdp-day_button:focus-visible {
+    outline: 2px solid hsl(var(--primary));
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px hsl(var(--primary) / 0.2);
+  }
+
+  /* Smooth animations for month transitions */
+  .rdp-month {
+    animation: fadeInUp 0.3s ease-out;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Beautiful popover styling for date picker */
+  .rdp-dropdown {
+    background: hsl(var(--popover));
+    border: 1px solid hsl(var(--border));
+    border-radius: 0.75rem;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1),
+      0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    backdrop-filter: blur(10px);
+  }
+  /* Enhanced table layout and cell styling */
+  .rdp-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 2px;
+    margin-top: 0.5rem;
+  }
+
+  .rdp-head_cell,
+  .rdp-cell {
+    text-align: center;
+    width: calc(100% / 7);
+    position: relative;
+  }
+
+  .rdp-day {
+    width: var(--rdp-cell-size);
+    height: var(--rdp-cell-size);
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    margin: auto;
+    background: hsl(var(--background));
+    border: 1px solid transparent;
+  }
+
+  .rdp-day:hover {
+    background: hsl(var(--accent) / 0.1);
+    border-color: hsl(var(--accent) / 0.3);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

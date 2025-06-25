@@ -1,0 +1,27 @@
+[install]
+# Enable workspace support
+workspaces = true
+
+# Use exact versions by default
+exact = true
+
+# Peer dependencies handling
+peer = true
+
+# Cache configuration
+cache = true
+
+[install.scopes]
+# Optional: Configure private registries if needed
+
+[run]
+# Enable shell execution for scripts
+shell = "system"
+
+# Set environment variables
+env = { NODE_ENV = "development" }
+
+[test]
+# Test configuration
+root = "."
+preload = []

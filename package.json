@@ -1,0 +1,36 @@
+{
+  "name": "budget-tracker-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "dev:frontend": "cd apps/frontend && bun run dev",
+    "dev:backend": "cd apps/backend && bun run dev",
+    "build": "bun run build:backend && bun run build:frontend",
+    "build:frontend": "cd apps/frontend && bun run build",
+    "build:backend": "cd apps/backend && bun run build",
+    "install:all": "bun install && bun run install:frontend && bun run install:backend",
+    "install:frontend": "cd apps/frontend && bun install",
+    "install:backend": "cd apps/backend && bun install",
+    "clean": "rm -rf node_modules && rm -rf apps/*/node_modules && rm -rf packages/*/node_modules && rm -rf bun.lockb && rm -rf apps/*/bun.lockb && rm -rf packages/*/bun.lockb",
+    "lint": "bun run lint:frontend && bun run lint:backend",
+    "lint:frontend": "cd apps/frontend && bun run lint",
+    "lint:backend": "cd apps/backend && bun run lint",
+    "type-check": "bun run type-check:frontend && bun run type-check:backend",
+    "type-check:frontend": "cd apps/frontend && bun run type-check",
+    "type-check:backend": "cd apps/backend && bun run type-check"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3",
+    "@types/node": "^20.10.0"
+  },
+  "engines": {
+    "bun": ">=1.0.0"
+  },
+  "dependencies": {
+    "tough-cookie": "5.1.2"
+  }
+}
