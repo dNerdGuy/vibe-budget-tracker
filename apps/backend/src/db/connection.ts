@@ -8,6 +8,7 @@ export const sql = new SQL({
   max: env.DB_MAX_CONNECTIONS,
   idleTimeout: env.DB_IDLE_TIMEOUT,
   connectionTimeout: env.DB_CONNECTION_TIMEOUT,
+  ssl: env.NODE_ENV === "production",
 });
 
 // Default export

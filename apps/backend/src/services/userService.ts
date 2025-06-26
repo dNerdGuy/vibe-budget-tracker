@@ -30,25 +30,43 @@ export interface UpdateUserData {
 export class UserService {
   // Create a new user
   static async create(userData: CreateUserData): Promise<User> {
-    const { email, password, name } = userData;
-    const password_hash = await Bun.password.hash(password, {
-      algorithm: "bcrypt",
-      cost: env.BCRYPT_ROUNDS,
-    });
+    try {
+      const { email, password, name } = userData;
+      const password_hash = await Bun.password.hash(password, {
+        algorithm: "bcrypt",
+        cost: env.BCRYPT_ROUNDS,
+      });
 
-    const result = await sql`
-      INSERT INTO users (email, password_hash, name)
-      VALUES (${email}, ${password_hash}, ${name})
-      RETURNING *
-    `;
+      const result = await sql`
+        INSERT INTO users (email, password_hash, name)
+        VALUES (${email}, ${password_hash}, ${name})
+        RETURNING *
+      `;
 
-    return result[0] as User;
+      return result[0] as User;
+    } catch (error) {
+      console.error("User creation error:", error);
+      throw new Error(
+        `Failed to create user: ${
+          error instanceof Error ? error.message : "Unknown error"
+        }`
+      );
+    }
   }
 
   // Find user by email
   static async findByEmail(email: string): Promise<User | null> {
-    const result = await sql`SELECT * FROM users WHERE email = ${email}`;
-    return result.length > 0 ? (result[0] as User) : null;
+    try {
+      const result = await sql`SELECT * FROM users WHERE email = ${email}`;
+      return result.length > 0 ? (result[0] as User) : null;
+    } catch (error) {
+      console.error("Find user by email error:", error);
+      throw new Error(
+        `Failed to find user: ${
+          error instanceof Error ? error.message : "Unknown error"
+        }`
+      );
+    }
   }
 
   // Find user by ID
@@ -167,7 +185,12 @@ export class UserService {
     plainPassword: string,
     hashedPassword: string
   ): Promise<boolean> {
-    return await Bun.password.verify(plainPassword, hashedPassword);
+    try {
+      return await Bun.password.verify(plainPassword, hashedPassword);
+    } catch (error) {
+      console.error("Password verification error:", error);
+      return false;
+    }
   }
   // Set password reset token
   static async setPasswordResetToken(

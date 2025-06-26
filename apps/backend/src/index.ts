@@ -92,10 +92,16 @@ console.log(`🚀 Budget Tracker API starting on port ${port}`);
 // Test database connection on startup
 async function testDatabaseConnection() {
   try {
+    console.log("🔍 Testing database connection...");
     const result =
-      await sql`SELECT NOW() as now, current_database() as db_name`;
+      await sql`SELECT NOW() as now, current_database() as db_name, version() as version`;
+
     if (result && result.length > 0) {
+      const { now, db_name, version } = result[0] as any;
       console.log("✅ Database connection established");
+      console.log(`📅 Server time: ${now}`);
+      console.log(`🗄️  Database: ${db_name}`);
+      console.log(`🐘 PostgreSQL version: ${version.split(" ")[0]}`);
       return true;
     }
     return false;

@@ -64,8 +64,13 @@ auth.post("/register", zValidator("json", registerSchema), async (c) => {
       201
     );
   } catch (error) {
+    console.error("Registration error:", error);
     const message =
-      error instanceof Error ? error.message : "Registration failed";
+      error instanceof Error
+        ? error.message
+        : typeof error === "string"
+        ? error
+        : "Registration failed";
     return c.json(
       {
         success: false,
@@ -102,7 +107,13 @@ auth.post("/login", zValidator("json", loginSchema), async (c) => {
       data: { user: authResponse.user },
     });
   } catch (error) {
-    const message = error instanceof Error ? error.message : "Login failed";
+    console.error("Login error:", error);
+    const message =
+      error instanceof Error
+        ? error.message
+        : typeof error === "string"
+        ? error
+        : "Login failed";
     return c.json(
       {
         success: false,
@@ -146,10 +157,17 @@ auth.get("/me", async (c) => {
       data: { user },
     });
   } catch (error) {
+    console.error("Token verification error:", error);
+    const message =
+      error instanceof Error
+        ? error.message
+        : typeof error === "string"
+        ? error
+        : "Token verification failed";
     return c.json(
       {
         success: false,
-        error: "Token verification failed",
+        error: message,
       },
       401
     );
@@ -197,10 +215,17 @@ auth.post("/refresh", async (c) => {
       message: "Tokens refreshed successfully",
     });
   } catch (error) {
+    console.error("Token refresh error:", error);
+    const message =
+      error instanceof Error
+        ? error.message
+        : typeof error === "string"
+        ? error
+        : "Token refresh failed";
     return c.json(
       {
         success: false,
-        error: "Token refresh failed",
+        error: message,
       },
       401
     );
