@@ -23,12 +23,23 @@ const app = new Hono();
 // Security middleware - apply rate limiting first
 app.use("*", globalRateLimit);
 
-// CORS middleware with security headers
+// CORS middleware with proper cross-origin cookie support
 app.use(
   "*",
   cors({
     origin: env.CORS_ORIGIN,
     credentials: true,
+    allowHeaders: [
+      "Content-Type",
+      "Authorization",
+      "X-Requested-With",
+      "Accept",
+      "Origin",
+      "Cache-Control",
+    ],
+    allowMethods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    exposeHeaders: ["Set-Cookie"],
+    maxAge: 86400, // 24 hours for preflight cache
   })
 );
 
@@ -53,6 +64,35 @@ app.get("/", (c) => {
     message: "Budget Tracker API",
     status: "healthy",
     timestamp: new Date().toISOString(),
+  });
+});
+
+// Cookie debug endpoint
+app.get("/debug/cookies", (c) => {
+  const cookies = c.req.header("cookie") || "";
+  const userAgent = c.req.header("user-agent") || "";
+  const origin = c.req.header("origin") || "";
+  const referer = c.req.header("referer") || "";
+
+  return c.json({
+    success: true,
+    debug: {
+      receivedCookies: cookies ? true : false,
+      cookieString: cookies,
+      userAgent: userAgent.substring(0, 100),
+      origin,
+      referer,
+      corsOrigin: env.CORS_ORIGIN,
+      timestamp: new Date().toISOString(),
+      headers: {
+        "access-control-allow-origin": c.res.headers.get(
+          "access-control-allow-origin"
+        ),
+        "access-control-allow-credentials": c.res.headers.get(
+          "access-control-allow-credentials"
+        ),
+      },
+    },
   });
 });
 
